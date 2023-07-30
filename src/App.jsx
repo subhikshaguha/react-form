@@ -35,7 +35,7 @@ import Form from './DynamicForm';
 }]
 
 */
-
+/*
 class BaseForm {
   copyFromDataSource();
 
@@ -104,7 +104,7 @@ function baseField() {
     updateValue,
   };
 }
-
+*/
 class Field {
   // have a constructor here and initialize stuff
   value = 'New';

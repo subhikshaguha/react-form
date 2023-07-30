@@ -16,8 +16,12 @@ export const TextFieldInput = (BaseField) => {
     const handleChange = (event) => {
       const newValue = event.target.value;
       field.value = event.target.value;
-      field.validate();
-      setInputValue(newValue);
+      field.validate().then(() => {
+        setInputValue(newValue);
+      }).catch(() => {
+        setInputValue(newValue);
+      }
+      );
     };
 
     // console.log('my label shall be', field);

@@ -46,13 +46,12 @@ function Form(props) {
   return (
     <form className="Form">
       {form?.fields?.map((field) => {
-        // console.log('subhiksha with value1', field);
         let ComponentVal = TextFieldInput(BaseField);
         if (field.isTextField) {
           ComponentVal = TextFieldInput(BaseField);
         }
         return (
-          <div>{field?.isTextField && <ComponentVal field={...field} submitted={submitted} />}</div>
+          <div>{field?.isTextField && <ComponentVal field={field} submitted={submitted} />}</div>
         );
       })}
 

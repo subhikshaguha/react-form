@@ -2,7 +2,6 @@ import { TextField } from '../Field/TextField';
 
 export class BaseForm {
   constructor(formValue) {
-    // console.log('my arguments will be', formValue);
     this.dataSource = formValue.dataSource;
     this.rawFields = formValue.rawFields;
   }

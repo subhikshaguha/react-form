@@ -9,14 +9,11 @@ export class TextField extends BaseField {
   }
 
   validate() {
-    // super(...arguments);
-    // console.log('lakshmi will be over here');
     return new Promise((resolve, reject) => {
       // this.resetErrors();
       // Mandatory check.
       if (this.isMandatory) {
         if (this.value === '' || !this.value) {
-          // console.log('lakshmi will be here');
           this.addErrors('This field is required');
           reject(this.errors);
         } else {
