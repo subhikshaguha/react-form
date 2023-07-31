@@ -1,3 +1,4 @@
+import { isEmpty, isEqual } from 'lodash';
 export class BaseField {
   errors = [];
   value = null;
@@ -6,7 +7,7 @@ export class BaseField {
   defaultValue = null;
 
   constructor(fieldValue) {
-    this.value = fieldValue.Value;
+    this.value = fieldValue.value;
     this._initialValue = fieldValue._initialValue;
     this._cleanValue = fieldValue._cleanValue;
     this.defaultValue = fieldValue.defaultValue;
@@ -21,13 +22,9 @@ export class BaseField {
     return new Promise((resolve, reject) => {
       this.resetErrors();
       // Mandatory check.
-      if (this.isMandatory) {
-        if (!this.value) {
-          this.addErrors('This field is required');
-          reject(this.errors);
-        } else {
-          resolve(this.value);
-        }
+      if (isEmpty(this.value) && this.isMandatory) {
+        this.addError('This field is required');
+        reject(this.value);
       } else {
         resolve(this.value);
       }
@@ -38,11 +35,16 @@ export class BaseField {
     this.errors.push(error);
   }
 
-  isDirty() {
-    return this.value !== this._initialValue;
+  initializeErrors() {
+    this.errors = [];
+  }
+
+  isFieldDirty() {
+    this.isDirty = !isEqual(this.value, this._initialValue);
   }
 
   updateValue(value) {
     this.value = value;
+    this.isFieldDirty();
   }
 }

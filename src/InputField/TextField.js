@@ -15,7 +15,7 @@ export const TextFieldInput = (BaseField) => {
 
     const handleChange = (event) => {
       const newValue = event.target.value;
-      field.value = event.target.value;
+      field.updateValue(newValue);
       field.validate().then(() => {
         setInputValue(newValue);
       }).catch(() => {
@@ -23,10 +23,6 @@ export const TextFieldInput = (BaseField) => {
       }
       );
     };
-
-    // console.log('my label shall be', field);
-    // const formContext = useContext(FormContext);
-    // const { form, errors } = formContext;
 
     return (
       <BaseField>

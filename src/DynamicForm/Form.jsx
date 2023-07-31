@@ -15,9 +15,14 @@ function Form(props) {
   const [formComponents, setFormComponents] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const onSubmit = () => {
+    if (submitted) {
+      setSubmitted(false);
+    }
     form.submit().then(() => {
       setSubmitted(true);
-    });
+    }).catch(() => {
+      setSubmitted(true);
+    })
     // if (errors?.length === 0) {
     //   submit(form);
     // }

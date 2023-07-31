@@ -16,8 +16,7 @@ export class BaseForm {
           resolve(dataSource);
         })
         .catch(() => {
-          // this.scrollToError();
-          resolve();
+          reject();
         });
     });
   }
@@ -47,8 +46,21 @@ export class BaseForm {
     console.log('something copy');
   }
   _copyToDataSource() {
-    // to be
-    console.log('copy to data source');
+    let dataSource = this.dataSource;
+    // let basicFieldKeys = rawFields.mapBy('key');
+    let basicFieldKeys = this.basicFieldKeys;
+    if (basicFieldKeys) {
+      basicFieldKeys.forEach((key) => {
+        let field = this[key];
+        // Dynamic field might not be present for this key
+        if (field) {
+          if (this.isEdit && !field.isDirty) {
+            return; // because we will be sending a PATCH request during edit.
+          }
+          dataSource[key] = field.getCleanValue();
+        }
+      });
+    }
   }
   _createFieldModels(rawFields) {
     let fieldModels = [];

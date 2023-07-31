@@ -10,6 +10,7 @@ export class TextField extends BaseField {
 
   validate() {
     return new Promise((resolve, reject) => {
+      this.initializeErrors();
       // this.resetErrors();
       // Mandatory check.
       if (this.isMandatory) {
@@ -25,12 +26,8 @@ export class TextField extends BaseField {
     });
   }
 
-  addErrors(error) {
-    this.errors.push(error);
-  }
-
   isDirty() {
-    return this.value !== this.initialValue;
+    return this.value !== this._initialValue;
   }
 
   updateValue(value) {
