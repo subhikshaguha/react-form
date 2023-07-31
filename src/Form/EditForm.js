@@ -14,15 +14,15 @@ export default class EditForm extends BaseForm {
   //   console.log('validate errors validate');
   // }
   _populateErrors() {
-    console.log('do something Edit Form');
+    // console.log('do something Edit Form');
   }
   copyFromDataSource() {
     // to fe
     // super(...arguments);
-    console.log('something copy EditForm');
+    // console.log('something copy EditForm');
   }
   _copyToDataSource() {
     // to be
-    console.log('copy to data source EditForm');
+    // console.log('copy to data source EditForm');
   }
 }

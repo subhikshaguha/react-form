@@ -59,7 +59,7 @@ function Form(props) {
           <div>{field?.isTextField && <ComponentVal field={field} submitted={submitted} />}</div>
         );
       })}
-
+      {form.isFormDirty?.() && <div>Form is dirty</div>}
       <button type="button" onClick={() => onSubmit()}>
         Submit
       </button>

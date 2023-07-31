@@ -12,7 +12,7 @@ const Forms = (props) => {
   };
 
   const submit = (form) => {
-    console.log('form is tested here');
+    // console.log('form is tested here');
   };
 
   const formValues = {
@@ -53,7 +53,6 @@ const Forms = (props) => {
         formValues={formValues}
         form={form}
       />
-
       <p>{message}</p>
     </div>
   );

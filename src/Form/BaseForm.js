@@ -38,12 +38,18 @@ export class BaseForm {
       });
     });
   }
+  isFormDirty() {
+    let fields = this.fields;
+    this.isDirty = fields.some((field) => field.isDirty());
+    console.log('the form dirty values here shall be', this.isDirty)
+    return fields.some((field) => field.isDirty());
+  };
   _populateErrors() {
-    console.log('do something');
+    // console.log('do something');
   }
   copyFromDataSource() {
     // to fe
-    console.log('something copy');
+    // console.log('something copy');
   }
   _copyToDataSource() {
     let dataSource = this.dataSource;

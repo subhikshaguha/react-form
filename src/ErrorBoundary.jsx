@@ -6,7 +6,6 @@ export class ErrorBoundary extends React.Component {
     }
   
     componentDidCatch(error) {
-        console.log('subhiksha guhan hee')
       this.setState({error: `${error.name}: ${error.message}`});
     }
   
