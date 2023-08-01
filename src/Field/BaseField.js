@@ -35,7 +35,11 @@ export class BaseField {
     this.errors.push(error);
   }
 
-  initializeErrors() {
+  setErrors(errors) {
+    this.errors = errors;
+  }
+
+  resetErrors() {
     this.errors = [];
   }
 

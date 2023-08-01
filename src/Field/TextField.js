@@ -10,8 +10,7 @@ export class TextField extends BaseField {
 
   validate() {
     return new Promise((resolve, reject) => {
-      this.initializeErrors();
-      // this.resetErrors();
+      this.resetErrors();
       // Mandatory check.
       if (this.isMandatory) {
         if (this.value === '' || !this.value) {

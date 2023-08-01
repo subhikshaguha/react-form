@@ -21,18 +21,6 @@ function Form(props) {
     }).catch(() => {
       setSubmitted(true);
     })
-    // if (errors?.length === 0) {
-    //   submit(form);
-    // }
-    // let errorsVal = {};
-    // formComponents.forEach((input) => {
-    //   const error = input?.validate(form[input.name], errors);
-    //   errorsVal[input.name] = error;
-    // });
-    // setErrors({
-    //   ...errors,
-    //   ...errorsVal,
-    // });
   };
 
   const fieldUpdated = () => {
