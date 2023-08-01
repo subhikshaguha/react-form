@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const TextFieldInput = (BaseField) => {
-  const TextInput = ({ field }) => {
+  const TextInput = ({ field, fieldUpdated }) => {
     const [inputValue, setInputValue] = useState(field.value);
     const {
       label,
@@ -11,15 +11,16 @@ export const TextFieldInput = (BaseField) => {
       form,
       errors,
     } = field;
-    console.log('my values over here are', field.errors);
 
     const handleChange = (event) => {
       const newValue = event.target.value;
       field.updateValue(newValue);
       field.validate().then(() => {
         setInputValue(newValue);
+        fieldUpdated();
       }).catch(() => {
         setInputValue(newValue);
+        fieldUpdated();
       }
       );
     };

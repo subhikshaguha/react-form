@@ -26,11 +26,4 @@ export class TextField extends BaseField {
     });
   }
 
-  isDirty() {
-    return this.value !== this._initialValue;
-  }
-
-  updateValue(value) {
-    this.value = value;
-  }
 }

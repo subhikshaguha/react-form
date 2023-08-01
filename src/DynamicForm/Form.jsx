@@ -10,10 +10,8 @@ const components = {
 
 function Form(props) {
   const { submit = () => {}, initialValues, formValues, form } = props;
-
-  // const [form, setForm] = useState(initialValues);
-  const [formComponents, setFormComponents] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
   const onSubmit = () => {
     if (submitted) {
       setSubmitted(false);
@@ -37,17 +35,10 @@ function Form(props) {
     // });
   };
 
-  // useEffect(() => {
-  //   let arr = [];
-  //   formValues?.forEach((element) => {
-  //     const component = components[element.type];
-  //     const RenderComponent = TextInputField(component);
-  //     const [{ ...textField }] = useTextField(setForm, setErrors, element);
-  //     arr.push({ component: RenderComponent, ...textField });
-  //   });
-  //   setFormComponents(arr);
-  // }, []);
-
+  const fieldUpdated = () => {
+    const isDirty = form.isFormDirty?.();
+    setIsDirty(isDirty);
+  }
   return (
     <form className="Form">
       {form?.fields?.map((field) => {
@@ -56,10 +47,10 @@ function Form(props) {
           ComponentVal = TextFieldInput(BaseField);
         }
         return (
-          <div>{field?.isTextField && <ComponentVal field={field} submitted={submitted} />}</div>
+          <div>{field?.isTextField && <ComponentVal field={field} fieldUpdated={fieldUpdated} submitted={submitted} />}</div>
         );
       })}
-      {form.isFormDirty?.() && <div>Form is dirty</div>}
+      {isDirty && <div>Form is dirty</div>}
       <button type="button" onClick={() => onSubmit()}>
         Submit
       </button>

@@ -40,9 +40,8 @@ export class BaseForm {
   }
   isFormDirty() {
     let fields = this.fields;
-    this.isDirty = fields.some((field) => field.isDirty());
-    console.log('the form dirty values here shall be', this.isDirty)
-    return fields.some((field) => field.isDirty());
+    this.isDirty = fields?.some((field) => field.isDirty);
+    return this.isDirty;
   };
   _populateErrors() {
     // console.log('do something');
@@ -72,12 +71,12 @@ export class BaseForm {
     let fieldModels = [];
     // check type of each field and create field model
     rawFields.forEach((rawField) => {
-      fieldModels.push(this.createField(this, rawField));
+      fieldModels.push(this.createField(rawField));
     });
     return fieldModels;
   }
 
-  createField(containerItem, rawField) {
+  createField(rawField) {
     let rawFieldItem;
     if (rawField.isTextField) {
       rawFieldItem = new TextField(rawField);

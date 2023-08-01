@@ -15,7 +15,7 @@ export class BaseField {
     this.errors = fieldValue.errors || [];
     this.isMandatory = fieldValue.isMandatory;
     this.isDisabled = false;
-    this.key = null;
+    this.key = fieldValue.key;
   }
 
   validate() {
@@ -40,7 +40,8 @@ export class BaseField {
   }
 
   isFieldDirty() {
-    this.isDirty = !isEqual(this.value, this._initialValue);
+    this.isDirty = !isEqual(this.value, this._initialValue, this.key);
+    return this.isDirty;
   }
 
   updateValue(value) {

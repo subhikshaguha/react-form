@@ -39,7 +39,10 @@ const Forms = (props) => {
 
   useEffect(() => {
     // formValues
-    let formInstance = new EditForm(formValues);
+    const formVal = {
+      ...formValues
+    }
+    let formInstance = new EditForm(formVal);
     setForm(formInstance);
   }, []);
 
