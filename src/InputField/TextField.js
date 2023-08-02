@@ -16,18 +16,16 @@ export const TextFieldInput = (BaseField) => {
       if (field.validateOnChange) {
         field.validate().then(() => {
           setInputValue(newValue);
-          fieldUpdated();
         }).catch(() => {
           setInputValue(newValue);
-          fieldUpdated();
         });
       } else {
-        fieldUpdated();
         setInputValue(newValue);
       }
     };
 
     const handleFocusOut = () => {
+      fieldUpdated();
       if (field.validateOnFocusOut) {
         field.validate().then(() => {
           setErrors(field.errors);
