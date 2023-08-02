@@ -20,7 +20,6 @@ export class BaseForm {
           resolve();
         })
         .catch((e) => {
-          console.log('subhiksha over here', e);
           reject();
         });
     });

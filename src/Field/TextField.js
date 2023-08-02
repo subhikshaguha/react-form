@@ -1,27 +1,40 @@
+import { min } from 'lodash';
 import { BaseField } from './BaseField';
 export class TextField extends BaseField {
-  isTextField = false;
-  isMandatory = true;
+  isTextField = true;
+  minCharacterLimit = null;
+  maxCharacterLimit = null;
+  value = '';
+  initialValue = '';
   constructor(args) {
     super(args);
-    this.isTextField = true;
-    this.isMandatory = true;
+    this.minCharacterLimit = args.minCharacterLimit;
+    this.maxCharacterLimit = args.maxCharacterLimit;
   }
 
   validate() {
     return new Promise((resolve, reject) => {
-      this.resetErrors();
-      // Mandatory check.
-      if (this.isMandatory) {
-        if (this.value === '' || !this.value) {
-          this.addErrors('This field is required');
-          reject(this.errors);
-        } else {
-          resolve(this.value);
+      super.validate().then(() => {
+        if (this.minCharacterLimit && (this.value.length < this.minCharacterLimit)) {
+          if (this.maxCharacterLimit) {
+            this.addErrors(`Please enter a value between ${this.minCharacterLimit} and ${this.maxCharacterLimit} characters`);
+          } else {
+            this.addErrors(`Please enter a value more than ${this.minCharacterLimit} characters`);
+          }
+          resolve();
         }
-      } else {
+        if (this.maxCharacterLimit && (this.value.length > this.maxCharacterLimit)) {
+          if (this.minCharacterLimit) {
+            this.addErrors(`Please enter a value between ${this.minCharacterLimit} and ${this.maxCharacterLimit} characters`);
+          } else {
+            this.addErrors(`Please enter a value less than ${this.maxCharacterLimit} characters`);
+          }
+          reject();
+        }
         resolve(this.value);
-      }
+      }).catch((e) => {
+        resolve();
+      });
     });
   }
 

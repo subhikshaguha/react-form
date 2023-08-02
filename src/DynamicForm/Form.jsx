@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-// import { FormContext } from './FormContext';
-// import FormInput from './Field/BaseField';
+import React, { useState } from 'react';
 import { TextFieldInput } from '../InputField/TextField';
 import { BaseField } from '../InputField/BaseField';
 
@@ -9,7 +7,7 @@ const components = {
 };
 
 function Form(props) {
-  const { submit = () => {}, initialValues, formValues, form } = props;
+  const { form } = props;
   const [submitted, setSubmitted] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const onSubmit = () => {
@@ -38,8 +36,7 @@ function Form(props) {
           <div>{field?.isTextField && <ComponentVal field={field} fieldUpdated={fieldUpdated} submitted={submitted} />}</div>
         );
       })}
-      {isDirty && <div>Form is dirty</div>}
-      <button type="button" onClick={() => onSubmit()}>
+      <button type="button" onClick={() => onSubmit()} disabled={!isDirty}>
         Submit
       </button>
     </form>

@@ -23,14 +23,19 @@ const Forms = (props) => {
         isTextField: true,
         label: 'First Name',
         key: 'firstName',
+        isMandatory: true,
+        validateOnChange: true
       },
       {
         isTextField: true,
         label: 'Last Name',
         key: 'lastName',
+        isMandatory: true,
+        validateOnFocusOut: true,
+        minCharacterLimit: 10,
       },
       {
-        isDynamicField: true,
+        isTextField: true,
         label: 'Middle Name',
         key: 'middleName',
       },

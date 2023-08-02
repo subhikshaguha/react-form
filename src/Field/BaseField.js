@@ -3,19 +3,21 @@ export class BaseField {
   errors = [];
   value = null;
   isMandatory = false;
-  _initialValue = null;
+  initialValue = null;
   defaultValue = null;
 
   constructor(fieldValue) {
-    this.value = fieldValue.value;
-    this._initialValue = fieldValue._initialValue;
-    this._cleanValue = fieldValue._cleanValue;
+    this.value = fieldValue.value || fieldValue.defaultValue;
+    this.initialValue = fieldValue.value;
+    this.cleanValue = fieldValue.cleanValue;
     this.defaultValue = fieldValue.defaultValue;
     this.label = fieldValue.label;
     this.errors = fieldValue.errors || [];
     this.isMandatory = fieldValue.isMandatory;
-    this.isDisabled = false;
+    this.isDisabled = fieldValue.isDisabled;
     this.key = fieldValue.key;
+    this.validateOnFocusOut = fieldValue.validateOnFocusOut;
+    this.validateOnChange = fieldValue.validateOnChange;
   }
 
   validate() {
@@ -23,10 +25,10 @@ export class BaseField {
       this.resetErrors();
       // Mandatory check.
       if (isEmpty(this.value) && this.isMandatory) {
-        this.addError('This field is required');
-        reject(this.value);
+        this.addErrors('This field is required');
+        reject();
       } else {
-        resolve(this.value);
+        resolve();
       }
     });
   }
@@ -44,12 +46,20 @@ export class BaseField {
   }
 
   isFieldDirty() {
-    this.isDirty = !isEqual(this.value, this._initialValue, this.key);
+    this.isDirty = !isEqual(this.value, this.initialValue);
     return this.isDirty;
   }
 
   updateValue(value) {
     this.value = value;
     this.isFieldDirty();
+  }
+
+  updateInitialValue() {
+    this.initialValue = this.value;
+  }
+
+  clearInitialValue() {
+    this.initialValue = null;
   }
 }
