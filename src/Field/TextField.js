@@ -32,7 +32,7 @@ export class TextField extends BaseField {
           reject();
         }
         resolve(this.value);
-      }).catch((e) => {
+      }).catch(() => {
         resolve();
       });
     });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BaseField from './BaseField';
 
 const TextField = ({ field, fieldUpdated }) => {
@@ -9,6 +9,11 @@ const TextField = ({ field, fieldUpdated }) => {
     type = 'text',
     name,
   } = field;
+
+  useEffect(() => {
+    setInputValue(field.value);
+    setErrors(field.errors);
+  }, [field.value, field.errors]);
 
   const handleChange = (event) => {
     const newValue = event?.target?.value;

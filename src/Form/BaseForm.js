@@ -102,6 +102,9 @@ export class BaseForm {
       });
     }
   }
+  setDataSource(dataSource) {
+    this.dataSource = dataSource;
+  }
   createFields(rawFields) {
     let fieldModels = [];
     // check type of each field and create field model
