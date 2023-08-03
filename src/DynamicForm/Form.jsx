@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { TextFieldInput } from '../InputField/TextField';
-import { BaseField } from '../InputField/BaseField';
 
-const components = {
-  text: BaseField,
-};
 
 function Form(props) {
   const { form } = props;
@@ -28,9 +24,9 @@ function Form(props) {
   return (
     <form className="Form">
       {form?.fields?.map((field) => {
-        let ComponentVal = TextFieldInput(BaseField);
+        let ComponentVal = TextFieldInput;
         if (field.isTextField) {
-          ComponentVal = TextFieldInput(BaseField);
+          ComponentVal = TextFieldInput;
         }
         return (
           <div>{field?.isTextField && <ComponentVal field={field} fieldUpdated={fieldUpdated} submitted={submitted} />}</div>

@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const BaseField = ({ children }) => {
-  return <div className="BaseInput">{children}</div>;
+const BaseField = ({ content }) => {
+  return <div className="BaseInput">{content}</div>;
 };
+
+export default BaseField;
