@@ -3,6 +3,7 @@ import { isNil } from 'lodash';
 import { isInvalid } from '../utilities/request.js';
 export class BaseForm {
   constructor(formValue) {
+    this.onFormUpdate = formValue.onFormUpdate;
     this.isEdit = formValue.isEdit;
     this.dataSource = formValue.dataSource || {};
     this.rawFields = formValue.rawFields;
@@ -52,6 +53,9 @@ export class BaseForm {
   isFormDirty() {
     let fields = this.fields;
     this.isDirty = fields?.some((field) => field.isDirty);
+    if (this.onFormUpdate) {
+      this.onFormUpdate('isDirty', this.isDirty);
+    }
     return this.isDirty;
   };
   populateErrors(errors) {
@@ -117,9 +121,9 @@ export class BaseForm {
   createField(rawField) {
     let rawFieldItem;
     if (rawField.isTextField) {
-      rawFieldItem = new TextField(rawField);
+      rawFieldItem = new TextField(rawField, this);
     } else {
-      rawFieldItem = new TextField(rawField);
+      rawFieldItem = new TextField(rawField, this);
     }
     return rawFieldItem;
   }

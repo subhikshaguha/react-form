@@ -6,8 +6,9 @@ export class BaseField {
   initialValue = null;
   defaultValue = null;
 
-  constructor(fieldValue) {
+  constructor(fieldValue, form) {
     this.value = fieldValue.value || fieldValue.defaultValue;
+    this.form = form;
     this.initialValue = fieldValue.value;
     this.cleanValue = fieldValue.cleanValue;
     this.defaultValue = fieldValue.defaultValue;
@@ -47,6 +48,8 @@ export class BaseField {
 
   isFieldDirty() {
     this.isDirty = !isEqual(this.value, this.initialValue);
+    console.log('subhiksha here ', this.form)
+    this.form.isFormDirty();
     return this.isDirty;
   }
 

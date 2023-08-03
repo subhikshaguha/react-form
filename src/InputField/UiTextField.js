@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import BaseField from './BaseField';
+import BaseField from './UiBaseField';
 
-const TextField = ({ field, fieldUpdated }) => {
+const TextField = ({ field }) => {
   const [inputValue, setInputValue] = useState(field.value);
   const [errors, setErrors] = useState(field.errors);
   const {
@@ -21,14 +21,11 @@ const TextField = ({ field, fieldUpdated }) => {
     if (field.validateOnChange) {
       field.validate().then(() => {
         setInputValue(newValue);
-        fieldUpdated();
       }).catch(() => {
         setInputValue(newValue);
-        fieldUpdated();
       });
     } else {
       setInputValue(newValue);
-      fieldUpdated();
     }
   };
 

@@ -6,10 +6,10 @@ export class TextField extends BaseField {
   maxCharacterLimit = null;
   value = '';
   initialValue = '';
-  constructor(args) {
-    super(args);
-    this.minCharacterLimit = args.minCharacterLimit;
-    this.maxCharacterLimit = args.maxCharacterLimit;
+  constructor(fieldValue, form) {
+    super(fieldValue, form);
+    this.minCharacterLimit = fieldValue.minCharacterLimit;
+    this.maxCharacterLimit = fieldValue.maxCharacterLimit;
   }
 
   validate() {

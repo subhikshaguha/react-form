@@ -5,6 +5,7 @@ import Form from './Form';
 const Forms = (props) => {
   const [message, setMessage] = useState('');
   const [form, setForm] = useState({});
+  const [updatedFormProps, setUpdatedFormProps] = useState({});  
   const initialValues = {
     firstName: 'Text',
     lastName: '',
@@ -42,10 +43,20 @@ const Forms = (props) => {
     ],
   };
 
+  const onFormUpdate = (formProp, value) => {
+    if (formProp === 'isDirty') {
+      setUpdatedFormProps(prevUpdatedFormProps => ({
+        ...prevUpdatedFormProps,
+        isDirty: value
+      }));
+    }
+  }
+
   useEffect(() => {
     // formValues
     const formVal = {
-      ...formValues
+      ...formValues,
+      onFormUpdate
     }
     let formInstance = new EditForm(formVal);
     setForm(formInstance);
@@ -60,6 +71,7 @@ const Forms = (props) => {
         initialValues={initialValues}
         formValues={formValues}
         form={form}
+        updatedFormProps={updatedFormProps}
       />
       <p>{message}</p>
     </div>

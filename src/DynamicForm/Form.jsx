@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { TextFieldInput } from '../InputField/TextField';
+import { TextFieldInput } from '../InputField/UiTextField';
 
 
 function Form(props) {
-  const { form } = props;
+  const { form, updatedFormProps } = props;
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDirty, setIsDirty] = useState(false);
+
   const onSubmit = () => {
     if (submitted) {
       setSubmitted(false);
@@ -33,10 +33,6 @@ function Form(props) {
       })
   };
 
-  const fieldUpdated = () => {
-    const isDirty = form.isFormDirty?.();
-    setIsDirty(isDirty);
-  }
   return (
     <form className="Form">
       {form?.fields?.map((field) => {
@@ -45,10 +41,10 @@ function Form(props) {
           ComponentVal = TextFieldInput;
         }
         return (
-          <div>{field?.isTextField && <ComponentVal field={field} fieldUpdated={fieldUpdated} submitted={submitted} isLoading={isLoading} />}</div>
+          <div>{field?.isTextField && <ComponentVal field={field} submitted={submitted} isLoading={isLoading} />}</div>
         );
       })}
-      <button type="button" onClick={() => onSubmit()} disabled={!isDirty || isLoading}>
+      <button type="button" onClick={() => onSubmit()} disabled={!updatedFormProps.isDirty || isLoading}>
         {isLoading ? 'Loading...' : 'Submit'}
       </button>
     </form>
