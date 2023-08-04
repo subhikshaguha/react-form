@@ -6,8 +6,8 @@ export class TextField extends BaseField {
   maxCharacterLimit = null;
   value = '';
   initialValue = '';
-  constructor(fieldValue, form) {
-    super(fieldValue, form);
+  constructor(form, fieldValue) {
+    super(form, fieldValue);
     this.minCharacterLimit = fieldValue.minCharacterLimit;
     this.maxCharacterLimit = fieldValue.maxCharacterLimit;
   }

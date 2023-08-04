@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TextFieldInput } from '../InputField/UiTextField';
-
+import FormField from './FormField';
 
 function Form(props) {
   const { form, updatedFormProps } = props;
@@ -35,13 +34,9 @@ function Form(props) {
 
   return (
     <form className="Form">
-      {form?.fields?.map((field) => {
-        let ComponentVal = TextFieldInput;
-        if (field.isTextField) {
-          ComponentVal = TextFieldInput;
-        }
+      {form?.fields?.map((field, index) => {
         return (
-          <div>{field?.isTextField && <ComponentVal field={field} submitted={submitted} isLoading={isLoading} />}</div>
+          <FormField key={`${field.key}${index}`} field={field} submitted={submitted} isLoading={isLoading} />
         );
       })}
       <button type="button" onClick={() => onSubmit()} disabled={!updatedFormProps.isDirty || isLoading}>

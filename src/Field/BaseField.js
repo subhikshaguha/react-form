@@ -6,7 +6,7 @@ export class BaseField {
   initialValue = null;
   defaultValue = null;
 
-  constructor(fieldValue, form) {
+  constructor(form, fieldValue) {
     this.value = fieldValue.value || fieldValue.defaultValue;
     this.form = form;
     this.initialValue = fieldValue.value;
@@ -48,12 +48,12 @@ export class BaseField {
 
   isFieldDirty() {
     this.isDirty = !isEqual(this.value, this.initialValue);
-    console.log('subhiksha here ', this.form)
     this.form.isFormDirty();
     return this.isDirty;
   }
 
   updateValue(value) {
+    console.log('my field is here', this.key)
     this.value = value;
     this.isFieldDirty();
   }

@@ -24,8 +24,7 @@ const Forms = (props) => {
         isTextField: true,
         label: 'First Name',
         key: 'firstName',
-        isMandatory: true,
-        validateOnChange: true
+        isMandatory: true
       },
       {
         isTextField: true,
@@ -40,10 +39,21 @@ const Forms = (props) => {
         label: 'Middle Name',
         key: 'middleName',
       },
+      {
+        isObject: true,
+        label: 'Address',
+        key: 'address',
+        childFieldsMetaInfo: [
+          { isTextField: true, label: 'Street', key: 'street', isMandatory: true, validateOnChange: true },
+          { isTextField: true, label: 'City', key: 'city' },
+          { isTextField: true, label: 'State', key: 'state' },
+        ]
+      }
     ],
   };
 
   const onFormUpdate = (formProp, value) => {
+    console.log('we like to cal this function', formProp, value)
     if (formProp === 'isDirty') {
       setUpdatedFormProps(prevUpdatedFormProps => ({
         ...prevUpdatedFormProps,

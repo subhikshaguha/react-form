@@ -1,6 +1,8 @@
 import { TextField } from '../Field/TextField';
+import { ObjectField } from '../Field/ObjectField';
 import { isNil } from 'lodash';
-import { isInvalid } from '../utilities/request.js';
+import { isInvalid } from '../utilities/request';
+import { createFields, createFieldModels } from '../utilities/FormModel';
 export class BaseForm {
   constructor(formValue) {
     this.onFormUpdate = formValue.onFormUpdate;
@@ -8,8 +10,8 @@ export class BaseForm {
     this.dataSource = formValue.dataSource || {};
     this.rawFields = formValue.rawFields;
     this.basicFieldKeys = this.rawFields.map(({ key }) => key);
-    this.fields = this.createFields(this.rawFields);
-    this.model = this.createFieldModels(this.fields);
+    this.fields = createFields(this, this.rawFields);
+    this.model = createFieldModels(this.fields);
     this.copyFromDataSource();
   }
   submit() {
@@ -51,6 +53,7 @@ export class BaseForm {
     });
   }
   isFormDirty() {
+    // check here
     let fields = this.fields;
     this.isDirty = fields?.some((field) => field.isDirty);
     if (this.onFormUpdate) {
@@ -58,6 +61,7 @@ export class BaseForm {
     }
     return this.isDirty;
   };
+
   populateErrors(errors) {
     let fields = this.fields;
     if (isInvalid(errors.status)) {
@@ -74,6 +78,7 @@ export class BaseForm {
       });
     }
   }
+
   copyFromDataSource(source = null) {
     let basicFieldKeys = this.basicFieldKeys;
     let dataSource = source || this.dataSource;
@@ -90,6 +95,7 @@ export class BaseForm {
       });
     }
   }
+
   copyToDataSource() {
     let dataSource = this.dataSource;
     let basicFieldKeys = this.basicFieldKeys;
@@ -106,33 +112,25 @@ export class BaseForm {
       });
     }
   }
+
   setDataSource(dataSource) {
     this.dataSource = dataSource;
   }
-  createFields(rawFields) {
-    let fieldModels = [];
-    // check type of each field and create field model
-    rawFields.forEach((rawField) => {
-      fieldModels.push(this.createField(rawField));
-    });
-    return fieldModels;
-  }
 
-  createField(rawField) {
-    let rawFieldItem;
-    if (rawField.isTextField) {
-      rawFieldItem = new TextField(rawField, this);
-    } else {
-      rawFieldItem = new TextField(rawField, this);
-    }
-    return rawFieldItem;
-  }
+  // createFields(rawFields) {
+  //   let fieldModels = [];
+  //   // check type of each field and create field model
+  //   rawFields.forEach((rawField) => {
+  //     fieldModels.push(createField(this, rawField));
+  //   });
+  //   return fieldModels;
+  // }
 
-  createFieldModels(fields) {
-    let fieldModels = {};
-    fields.forEach((field) => {
-      fieldModels[field.key] = field;
-    });
-    return fieldModels;
-  }
+  // createFieldModels(fields) {
+  //   let fieldModels = {};
+  //   fields.forEach((field) => {
+  //     fieldModels[field.key] = field;
+  //   });
+  //   return fieldModels;
+  // }
 }

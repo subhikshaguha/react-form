@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BaseField from './UiBaseField';
 
-const TextField = ({ field }) => {
+const UiTextField = React.memo(({ field }) => {
   const [inputValue, setInputValue] = useState(field.value);
   const [errors, setErrors] = useState(field.errors);
   const {
@@ -62,6 +62,6 @@ const TextField = ({ field }) => {
       }
     />
   );
-};
+});
 
-export const TextFieldInput = React.memo(TextField);
+export default UiTextField;
