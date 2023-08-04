@@ -3,9 +3,10 @@ import { createFieldModels } from '../utilities/FormModel';
 
 export class ObjectField extends BaseField {
   isObject = true;
-  value = {};
-  initialValue = {};
+  value = null;
+  initialValue = null;
   childFields = null;
+
   constructor(form, fieldValue) {
     super(form, fieldValue);
     this.childFields = fieldValue.childFields;
@@ -30,6 +31,14 @@ export class ObjectField extends BaseField {
           }
         });
     });
+  }
+
+  getCleanValue() {
+    let cleanValue = {};
+    this.childFields.forEach((child) => {
+      cleanValue[child.key] = child.getCleanValue();
+    });
+    return cleanValue;
   }
 
 }

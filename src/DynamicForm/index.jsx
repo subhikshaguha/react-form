@@ -44,8 +44,22 @@ const Forms = (props) => {
         label: 'Address',
         key: 'address',
         childFieldsMetaInfo: [
-          { isTextField: true, label: 'Street', key: 'street', isMandatory: true, validateOnChange: true },
-          { isTextField: true, label: 'City', key: 'city' },
+          {
+            isTextField: true, 
+            label: 'Street', 
+            key: 'street',
+            isMandatory: true,
+            validateOnChange: true
+          },
+          { 
+            isObject: true,
+            label: 'City',
+            key: 'city',
+            childFieldsMetaInfo: [
+              { isTextField: true, label: 'Name', key: 'name', isMandatory: true },
+              { isTextField: true, label: 'Code', key: 'code' },
+            ]
+          },
           { isTextField: true, label: 'State', key: 'state' },
         ]
       }

@@ -18,6 +18,7 @@ export class BaseForm {
       this.validate()
         .then(() => {
           this.copyToDataSource();
+          console.log('my datasource here is', this.dataSource);
           resolve();
         })
         .catch((e) => {
@@ -114,7 +115,7 @@ export class BaseForm {
           if (this.isEdit && !field.isDirty) {
             return; // because we will be sending a PATCH request during edit.
           }
-          dataSource[key] = field.value;
+          dataSource[key] = field.getCleanValue();
         }
       });
     }

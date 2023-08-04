@@ -29,6 +29,7 @@ export class BaseField {
         this.addErrors('This field is required');
         reject();
       } else {
+        this.cleanValue = this.value;
         resolve();
       }
     });
@@ -53,7 +54,6 @@ export class BaseField {
   }
 
   updateValue(value) {
-    console.log('my field is here', this.key)
     this.value = value;
     this.isFieldDirty();
   }
@@ -64,5 +64,9 @@ export class BaseField {
 
   clearInitialValue() {
     this.initialValue = null;
+  }
+
+  getCleanValue() {
+    return this.cleanValue;
   }
 }
