@@ -15,25 +15,30 @@ export class TextField extends BaseField {
   validate() {
     return new Promise((resolve, reject) => {
       super.validate().then(() => {
-        if (this.minCharacterLimit && (this.value.length < this.minCharacterLimit)) {
-          if (this.maxCharacterLimit) {
-            this.addErrors(`Please enter a value between ${this.minCharacterLimit} and ${this.maxCharacterLimit} characters`);
-          } else {
-            this.addErrors(`Please enter a value more than ${this.minCharacterLimit} characters`);
+        if (this.minCharacterLimit && (this.value.length < this.minCharacterLimit) || this.maxCharacterLimit && (this.value.length > this.maxCharacterLimit)) {
+          if (this.minCharacterLimit && (this.value.length < this.minCharacterLimit)) {
+            if (this.maxCharacterLimit) {
+              this.addErrors(`Please enter a value between ${this.minCharacterLimit} and ${this.maxCharacterLimit} characters`);
+            } else {
+              this.addErrors(`Please enter a value more than ${this.minCharacterLimit} characters`);
+            }
+            reject();
           }
-          resolve();
-        }
-        if (this.maxCharacterLimit && (this.value.length > this.maxCharacterLimit)) {
-          if (this.minCharacterLimit) {
-            this.addErrors(`Please enter a value between ${this.minCharacterLimit} and ${this.maxCharacterLimit} characters`);
-          } else {
-            this.addErrors(`Please enter a value less than ${this.maxCharacterLimit} characters`);
+          if (this.maxCharacterLimit && (this.value.length > this.maxCharacterLimit)) {
+            if (this.minCharacterLimit) {
+              this.addErrors(`Please enter a value between ${this.minCharacterLimit} and ${this.maxCharacterLimit} characters`);
+            } else {
+              this.addErrors(`Please enter a value less than ${this.maxCharacterLimit} characters`);
+            }
+            
           }
-          reject();
-        }
-        resolve(this.value);
-      }).catch(() => {
+        reject();
+      } else {
         resolve();
+      }
+        
+      }).catch(() => {
+        reject();
       });
     });
   }
