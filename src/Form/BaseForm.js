@@ -1,5 +1,3 @@
-import { TextField } from '../Field/TextField';
-import { ObjectField } from '../Field/ObjectField';
 import { isNil } from 'lodash';
 import { isInvalid } from '../utilities/request';
 import { createFields, createFieldModels } from '../utilities/FormModel';
@@ -43,6 +41,7 @@ export class BaseForm {
       });
       Promise.allSettled(validationPromises).then((result) => {
         let isValid = result.every((result) => result.status === 'fulfilled');
+        console.log('subhiksha here with validation result', result, isValid);
         this.isValid = isValid;
         if (isValid) {
           resolve();
@@ -52,10 +51,18 @@ export class BaseForm {
       });
     });
   }
+
   isFormDirty() {
-    // check here
     let fields = this.fields;
-    this.isDirty = fields?.some((field) => field.isDirty);
+    const checkFieldAndChildren = (field) => {
+      if (field.isObject) {
+        let childFields = field.childFields;
+        return childFields?.some((childField) => checkFieldAndChildren(childField));
+      } else {
+        return field.isDirty;
+      }
+    };
+    this.isDirty = fields?.some(field => checkFieldAndChildren(field));
     if (this.onFormUpdate) {
       this.onFormUpdate('isDirty', this.isDirty);
     }

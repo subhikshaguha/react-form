@@ -53,7 +53,6 @@ const Forms = (props) => {
   };
 
   const onFormUpdate = (formProp, value) => {
-    console.log('we like to cal this function', formProp, value)
     if (formProp === 'isDirty') {
       setUpdatedFormProps(prevUpdatedFormProps => ({
         ...prevUpdatedFormProps,

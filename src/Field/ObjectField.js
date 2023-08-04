@@ -1,5 +1,4 @@
 import { BaseField } from './BaseField';
-// import { createFields } from '../utilities/FormModel';
 import { createFieldModels } from '../utilities/FormModel';
 
 export class ObjectField extends BaseField {
@@ -11,16 +10,25 @@ export class ObjectField extends BaseField {
     super(form, fieldValue);
     this.childFields = fieldValue.childFields;
     this.model = createFieldModels(this.childFields);
-    // console.log('subhiksha here with child values', this.model, this.childFields);
   }
 
   validate() {
     return new Promise((resolve, reject) => {
-      super.validate().then(() => {
-        resolve(this.value);
-      }).catch(() => {
-        resolve();
+      this.resetErrors();
+      let promises = {};
+      this.childFields.forEach((child) => {
+        promises[child.key] = child.validate();
       });
+  
+      Promise.allSettled(Object.values(promises))
+        .then((results) => {
+          const isValid = results.every((result) => result.status === 'fulfilled');
+          if (isValid) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
     });
   }
 
