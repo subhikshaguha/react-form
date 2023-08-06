@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
-import UiTextField from '../InputField/UiTextField';
-import UiObjectField from '../InputField/UiObjectField';
+import UiTextField from './UiTextField';
+import UiObjectField from './UiObjectField';
 
 function FormField({ field, submitted, isLoading }) {
   return (

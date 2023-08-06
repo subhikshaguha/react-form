@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import FormField from '../DynamicForm/FormField';
+import FormField from './FormField';
 import BaseField from './UiBaseField';
 
 const UiObjectField = React.memo(({ field, submitted, isLoading }) => {
