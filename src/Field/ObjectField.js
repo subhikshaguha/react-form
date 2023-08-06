@@ -6,6 +6,7 @@ export class ObjectField extends BaseField {
   value = null;
   initialValue = null;
   childFields = null;
+  model = null;
 
   constructor(form, fieldValue) {
     super(form, fieldValue);

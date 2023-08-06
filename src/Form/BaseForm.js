@@ -70,6 +70,21 @@ export class BaseForm {
     return this.isDirty;
   };
 
+  findFieldByKey(fields, key) {
+    for (let i = 0; i < fields.length; i++) {
+      let field = fields[i];
+      if (field.key === key) {
+        return field;
+      } else if (field.children) {
+        let childField = findFieldByKey(field.children, key);
+        if (childField) {
+          return childField;
+        }
+      }
+    }
+    return null;
+  }
+
   populateErrors(errors) {
     let fields = this.fields;
     if (isInvalid(errors.status)) {
@@ -78,7 +93,7 @@ export class BaseForm {
         if (errorKey === 'nonFieldErrors') {
           this.errors = errorsPayload[errorKey];
         } else {
-          let field = fields.find((field) => field.key === errorKey);
+          let field = findFieldByKey(fields, error.field.camelize());
           if (!isNil(field)) {
             field.setErrors(errorsPayload[errorKey]);
           }
@@ -96,12 +111,33 @@ export class BaseForm {
         // To skip dynamic fields if not present
         if (field) {
           let value = dataSource[key];
-          if (!isNil(value)) {
+          if (field.isObject) {
+            let objectSource = dataSource[field.key];
+            this.copyFromDataSourceToObjectField(field, objectSource);
+          } else if (!isNil(value)) {
             field.value = dataSource[key];
           }
         }
       });
     }
+  }
+
+  copyFromDataSourceToObjectField(field, objectSource) {
+    field.childFields.forEach((childField) => {
+      if (objectSource) {
+        let value = objectSource[childField.key];
+        if (value !== undefined && childField.isChoice && childField.choiceValueKey) {
+          let choices = childField.choices;
+          let selectedChoice = choices.find(choice => choice[childField.choiceValueKey] === value.toString());
+          childField.value = selectedChoice;
+        } else if (value !== undefined) {
+          childField.value = value;
+        }
+        if (childField.isObject) {
+          this.copyFromDataSourceToObjectField(childField, value);
+        }
+      }
+    });
   }
 
   copyToDataSource() {
@@ -124,21 +160,4 @@ export class BaseForm {
   setDataSource(dataSource) {
     this.dataSource = dataSource;
   }
-
-  // createFields(rawFields) {
-  //   let fieldModels = [];
-  //   // check type of each field and create field model
-  //   rawFields.forEach((rawField) => {
-  //     fieldModels.push(createField(this, rawField));
-  //   });
-  //   return fieldModels;
-  // }
-
-  // createFieldModels(fields) {
-  //   let fieldModels = {};
-  //   fields.forEach((field) => {
-  //     fieldModels[field.key] = field;
-  //   });
-  //   return fieldModels;
-  // }
 }
