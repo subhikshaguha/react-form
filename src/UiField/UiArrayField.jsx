@@ -4,11 +4,19 @@ import BaseField from './UiBaseField';
 
 const UiArrayField = React.memo(({ field, submitted, isLoading }) => {
 
+  const addChildField = () => {
+    console.log('add field of ');
+    field.add?.();
+  };
+
   return (
     <BaseField
       content={
         <React.Fragment>
-          hello World
+            Array Field <button type="button" onClick={() => addChildField()}>+</button>
+           {field.childFields.map((field, index) => (
+            <FormField key={`${field.key}${index}`} field={field} submitted={submitted} isLoading={isLoading} />
+          ))}
         </React.Fragment>
       }
     />

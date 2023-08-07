@@ -22,7 +22,6 @@ export class ArrayField extends BaseField {
       }
     ];
     this.value = phones;
-    console.log('guharajan over here is');
     this.createChildFields(this.value);
   }
 
@@ -38,10 +37,9 @@ export class ArrayField extends BaseField {
 
     if (childFieldsValues) {
       let childMetaInfo = this.childFieldsMetaInfo;
-      console.log('subhiksha here with the childMetaInfo', childMetaInfo)
       childFieldsValues.forEach((childValue) => {
         // childMetaInfo.value = childValue;
-        let field = createField(this, childMetaInfo);
+        let field = createField(this.form, childMetaInfo);
         childMetaInfo.value = null;
         // field.updateInitialValue();
         childFields.push(field);
@@ -58,6 +56,5 @@ export class ArrayField extends BaseField {
     // this.value = value;
     // this._initialValue = initialValue;
     this.childFields = childFields;
-    console.log('subhiksha here with child fields', this.childFields)
   }
 }

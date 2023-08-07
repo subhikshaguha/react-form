@@ -8,6 +8,7 @@ const UiObjectField = React.memo(({ field, submitted, isLoading }) => {
     <BaseField
       content={
         <React.Fragment>
+          Object Field
           {field.childFields.map((field, index) => (
             <FormField key={`${field.key}${index}`} field={field} submitted={submitted} isLoading={isLoading} />
           ))}

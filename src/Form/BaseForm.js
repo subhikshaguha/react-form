@@ -18,7 +18,6 @@ export class BaseForm {
       this.validate()
         .then(() => {
           this.copyToDataSource();
-          console.log('my datasource here is', this.dataSource);
           resolve();
         })
         .catch((e) => {
@@ -42,7 +41,6 @@ export class BaseForm {
       });
       Promise.allSettled(validationPromises).then((result) => {
         let isValid = result.every((result) => result.status === 'fulfilled');
-        console.log('subhiksha here with validation result', result, isValid);
         this.isValid = isValid;
         if (isValid) {
           resolve();
