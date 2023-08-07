@@ -10,6 +10,7 @@ export class BaseForm {
     this.basicFieldKeys = this.rawFields.map(({ key }) => key);
     this.fields = createFields(this, this.rawFields);
     this.model = createFieldModels(this.fields);
+    this.component = formValue.component;
     this.copyFromDataSource();
   }
   submit() {

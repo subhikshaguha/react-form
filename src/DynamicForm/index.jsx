@@ -16,7 +16,7 @@ const Forms = (props) => {
     // console.log('form is tested here');
   };
 
-  const formValues = {
+  /*const formValues = {
     stepType: 'add_reply',
     application: 'happyfox',
     rawFields: [
@@ -76,6 +76,48 @@ const Forms = (props) => {
             { isTextField: true, label: 'Type', key: 'type' },
           ]
         }
+      }
+    ],
+  };*/
+
+  const formValues = {
+    stepType: 'add_reply',
+    application: 'happyfox',
+    component: 'stackblitz-starters-crodli/src/DynamicForm/AddReply',
+    rawFields: [
+      {
+        isTextField: true,
+        label: 'First Name',
+        key: 'firstName',
+        isMandatory: true
+      },
+      {
+        isTextField: true,
+        label: 'Last Name',
+        key: 'lastName',
+        isMandatory: true,
+        validateOnFocusOut: true,
+        minCharacterLimit: 10,
+      },
+      {
+        isTextField: true,
+        label: 'Middle Name',
+        key: 'middleName',
+      },
+      {
+        isObject: true,
+        label: 'Address',
+        key: 'address',
+        childFieldsMetaInfo: [
+          {
+            isTextField: true, 
+            label: 'Street', 
+            key: 'street',
+            isMandatory: true,
+            validateOnChange: true
+          },
+          { isTextField: true, label: 'State', key: 'state' },
+        ]
       }
     ],
   };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FormField from '../UiField/FormField';
+import UiDynamicForm from './UiDynamicForm';
 
 function Form(props) {
   const { form, updatedFormProps } = props;
@@ -34,11 +35,15 @@ function Form(props) {
 
   return (
     <form className="Form">
-      {form?.fields?.map((field, index) => {
-        return (
-          <FormField key={`${field.key}${index}`} field={field} submitted={submitted} isLoading={isLoading} />
-        );
-      })}
+      {form?.component ? <UiDynamicForm component={form.component} form={form} /> :
+        <React.Fragment>
+          {form?.fields?.map((field, index) => {
+            return (
+              <FormField key={`${field.key}${index}`} field={field} submitted={submitted} isLoading={isLoading} />
+            );
+          })}
+        </React.Fragment>
+      }
       <button type="button" onClick={() => onSubmit()} disabled={!updatedFormProps.isDirty || isLoading}>
         {isLoading ? 'Loading...' : 'Submit'}
       </button>
