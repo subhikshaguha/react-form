@@ -1,5 +1,6 @@
 import { TextField } from '../Field/TextField';
 import { ObjectField } from '../Field/ObjectField';
+import { ArrayField } from '../Field/ArrayField';
 
 function createFields(form, rawFields) {
   let fieldModels = [];
@@ -16,12 +17,14 @@ function getFieldClass(rawField) {
     fieldClassDefinition = ObjectField;
   } else if (rawField.isTextField) {
     fieldClassDefinition = TextField;
+  } else if (rawField.isArray) {
+    fieldClassDefinition = ArrayField;
   }
   return fieldClassDefinition;
 }
 
 function createField(containerItem, rawField) {
-  let fieldClassDefinition = rawField.fieldClass || getFieldClass(rawField);
+  let fieldClassDefinition = rawField?.fieldClass || getFieldClass(rawField);
   // If the field is of object type, create its child fields
   if (rawField.isObject) {
     let childFields = [];

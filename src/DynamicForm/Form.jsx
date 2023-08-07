@@ -20,7 +20,7 @@ function Form(props) {
 
   const fetchUserData = () => {
     setIsLoading(true);
-    fetch("https://run.mocky.io/v3/b8b60193-2ff5-4c7b-aefe-7406e630dac8")
+    fetch("https://run.mocky.io/v3/3c961efc-ff85-46b3-828f-39f7d00ae557")
       .then(response => {
         return response.json()
       })

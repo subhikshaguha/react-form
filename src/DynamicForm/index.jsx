@@ -67,15 +67,15 @@ const Forms = (props) => {
         isArray: true,
         label: 'Phones',
         key: 'phones',
-        childFieldsMetaInfo: [
-          {
-            isTextField: true, 
-            label: 'Number', 
-            key: 'number',
-            isMandatory: true,
-            validateOnChange: true
-          }
-        ]
+        childFieldsMetaInfo: {
+          isObject: true, 
+          label: 'Phone', 
+          key: 'phone',
+          childFieldsMetaInfo: [
+            { isTextField: true, label: 'Number', key: 'number' },
+            { isTextField: true, label: 'Type', key: 'type' },
+          ]
+        }
       }
     ],
   };
