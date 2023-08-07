@@ -16,8 +16,9 @@ const Forms = (props) => {
     // console.log('form is tested here');
   };
 
-  /*const formValues = {
+  const formValues = {
     stepType: 'add_reply',
+    component: './AddReply.jsx',
     application: 'happyfox',
     rawFields: [
       {
@@ -78,12 +79,12 @@ const Forms = (props) => {
         }
       }
     ],
-  };*/
+  };
 
-  const formValues = {
+  /*const formValues = {
     stepType: 'add_reply',
     application: 'happyfox',
-    component: 'stackblitz-starters-crodli/src/DynamicForm/AddReply',
+    component: './AddReply.jsx',
     rawFields: [
       {
         isTextField: true,
@@ -120,7 +121,7 @@ const Forms = (props) => {
         ]
       }
     ],
-  };
+  }; */
 
   const onFormUpdate = (formProp, value) => {
     if (formProp === 'isDirty') {
