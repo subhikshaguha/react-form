@@ -59,7 +59,7 @@ export class ArrayField extends BaseField {
   }
 
   addNewChildField(value = null) {
-    let field = createField(this, this.childFieldsMetaInfo);
+    let field = createField(this.form, this.childFieldsMetaInfo);
     // let fieldValue = field.getValueCopy(value);
     // field.value = fieldValue;
     this.childFields.push(field);

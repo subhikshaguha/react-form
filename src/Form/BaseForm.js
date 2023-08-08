@@ -57,7 +57,14 @@ export class BaseForm {
     const checkFieldAndChildren = (field) => {
       if (field.isObject) {
         let childFields = field.childFields;
-        return childFields?.some((childField) => checkFieldAndChildren(childField));
+        let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
+        field.isDirty = isDirty;
+        return isDirty;
+      } else if (field.isArray) {
+        let childFields = field.childFields;
+        let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
+        field.isDirty = isDirty;
+        return isDirty;
       } else {
         return field.isDirty;
       }
