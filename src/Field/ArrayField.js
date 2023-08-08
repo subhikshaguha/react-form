@@ -70,4 +70,24 @@ export class ArrayField extends BaseField {
     return this.childFields;
   }
 
+  validate() {
+    return new Promise((resolve, reject) => {
+      this.resetErrors();
+      let promises = [];
+      this.childFields.forEach(child => {
+        promises.push(child.validate());
+      });
+  
+      Promise.allSettled(promises)
+        .then(results => {
+          const isValid = results.every((result) => result.status === 'fulfilled');
+          if (isValid) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+    });
+  }
+
 }

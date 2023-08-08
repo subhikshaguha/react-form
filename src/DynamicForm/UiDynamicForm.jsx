@@ -22,8 +22,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-function UiDynamicForm({component, form}) {
-  const [parentText, setParentText] = useState('Hello from parent state!');
+function UiDynamicForm({component, form, submitted}) {
   const [componentUpdated, setComponentUpdated] = useState(false);
   const dynamicComponentRef = useRef(null);
 
@@ -42,7 +41,7 @@ function UiDynamicForm({component, form}) {
   return (
     <div>
       {/* Render the dynamically loaded component */}
-      {DynamicComponent && <DynamicComponent text={parentText} form={form} />}
+      {DynamicComponent && <DynamicComponent form={form} submitted={submitted} />}
 
     </div>
   );

@@ -35,7 +35,7 @@ function Form(props) {
 
   return (
     <form className="Form">
-      {form?.component ? <UiDynamicForm component={form.component} form={form} /> :
+      {form?.component ? <UiDynamicForm component={form.component} form={form} submitted={submitted} /> :
         <React.Fragment>
           {form?.fields?.map((field, index) => {
             return (

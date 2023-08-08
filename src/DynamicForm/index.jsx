@@ -73,7 +73,7 @@ const Forms = (props) => {
           label: 'Phone', 
           key: 'phone',
           childFieldsMetaInfo: [
-            { isTextField: true, label: 'Number', key: 'number' },
+            { isTextField: true, label: 'Number', key: 'number', isMandatory: true },
             { isTextField: true, label: 'Type', key: 'type' },
           ]
         }

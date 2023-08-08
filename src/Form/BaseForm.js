@@ -21,7 +21,7 @@ export class BaseForm {
           this.copyToDataSource();
           resolve();
         })
-        .catch((e) => {
+        .catch(() => {
           reject();
         });
     });
