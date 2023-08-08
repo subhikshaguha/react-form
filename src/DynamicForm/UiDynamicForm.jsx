@@ -31,7 +31,6 @@ function UiDynamicForm({component, form}) {
     // Dynamically import the component only once on mount
     import(`${component}`).then(module => {
       // Assuming your component is the default export of the module
-      console.log('my component is', module.default)
       const Component = module.default;
       dynamicComponentRef.current = Component;
       setComponentUpdated(true);

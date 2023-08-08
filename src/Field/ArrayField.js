@@ -57,4 +57,12 @@ export class ArrayField extends BaseField {
     // this._initialValue = initialValue;
     this.childFields = childFields;
   }
+
+  addNewChildField(value = null) {
+    let field = createField(this, this.childFieldsMetaInfo);
+    // let fieldValue = field.getValueCopy(value);
+    // field.value = fieldValue;
+    this.childFields.push(field);
+    return this.childFields;
+  }
 }

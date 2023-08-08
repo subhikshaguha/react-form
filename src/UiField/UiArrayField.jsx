@@ -5,7 +5,6 @@ import BaseField from './UiBaseField';
 const UiArrayField = React.memo(({ field, submitted, isLoading }) => {
 
   const addChildField = () => {
-    console.log('add field of ');
     field.add?.();
   };
 
