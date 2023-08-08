@@ -11,9 +11,10 @@ function Form(props) {
     if (submitted) {
       setSubmitted(false);
     }
-    form.submit().then(() => {
+    form.submit().then(async() => {
       setSubmitted(true);
-      fetchUserData();
+      await fetchUserData();
+      setSubmitted(false);
     }).catch(() => {
       setSubmitted(true);
     })
@@ -35,7 +36,7 @@ function Form(props) {
 
   return (
     <form className="Form">
-      {form?.component ? <UiDynamicForm component={form.component} form={form} submitted={submitted} /> :
+      {form?.component ? <UiDynamicForm component={form.component} form={form} submitted={submitted} isLoading={isLoading}/> :
         <React.Fragment>
           {form?.fields?.map((field, index) => {
             return (

@@ -33,7 +33,7 @@ const Forms = (props) => {
         key: 'lastName',
         isMandatory: true,
         validateOnFocusOut: true,
-        minCharacterLimit: 10,
+        minCharacterLimit: 5,
       },
       {
         isTextField: true,
