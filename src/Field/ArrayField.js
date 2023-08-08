@@ -65,4 +65,9 @@ export class ArrayField extends BaseField {
     this.childFields.push(field);
     return this.childFields;
   }
+  removeChildField(index) {
+    this.childFields.splice(index, 1);
+    return this.childFields;
+  }
+
 }
