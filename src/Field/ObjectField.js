@@ -1,5 +1,5 @@
 import { BaseField } from './BaseField';
-import { createFieldModels } from '../utilities/FormModel';
+import { createField, createFieldModels } from '../utilities/FormModel';
 
 export class ObjectField extends BaseField {
   isObject = true;
@@ -8,10 +8,51 @@ export class ObjectField extends BaseField {
   childFields = null;
   model = null;
 
-  constructor(form, fieldValue) {
-    super(form, fieldValue);
-    this.childFields = fieldValue.childFields;
+  constructor(form, fieldValue, parentField = null) {
+    super(form, fieldValue, parentField);
+    this.childFieldsMetaInfo = fieldValue.childFieldsMetaInfo || [];
+    this.createChildFields(this.childFieldsMetaInfo);
+    // this.childFields = fieldValue.childFields;
     this.model = createFieldModels(this.childFields);
+  }
+
+  createChildFields(
+    childFieldsValues = null,
+    isClone = false,
+    setInitialValue = true
+  ) {
+    let childFields = [];
+    if (childFieldsValues) {
+      let childMetaInfo = this.childFieldsMetaInfo;
+      childFieldsValues.forEach((childValue) => {
+        // childMetaInfo.value = childValue;
+        let field = createField(this.form, childValue, this);
+        childMetaInfo.value = null;
+        // field.updateInitialValue();
+        childFields.push(field);
+        // value.push(field.value);
+
+        // if (isClone) {
+        //   field.clearInitialValue();
+        // } else if (setInitialValue) {
+        //   initialValue.push(field._initialValue);
+        // }
+      });
+    }
+
+    // this.value = value;
+    // this._initialValue = initialValue;
+    this.childFields = childFields;
+  }
+
+  isFieldDirty() {
+    this.isDirty = this.childFields.some((child) => child.isDirty);
+    if (this.parentField) {
+      this.parentField.isFieldDirty();
+    } else {
+      this.form.isFieldDirty();
+    }
+    return this.isDirty;
   }
 
   validate() {

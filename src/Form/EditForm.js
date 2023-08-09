@@ -4,6 +4,19 @@ export default class EditForm extends BaseForm {
   constructor(args) {
     super(args);
   }
+  copyFromDataSource() {
+    super.copyFromDataSource();
+    let isArrayPresent = this.fields.some((field) => field.isArray);
+    if (isArrayPresent) {
+      this.fields.forEach((field) => {
+        if (field.isArray) {
+          field.childFields = [];
+          field.createChildFields(field.value);
+        }
+      });
+    }
+  }
+
   /*populateErrors(errorResponse) {
     let fields = this.get('fields');
     if (errorResponse && isInvalid(errorResponse.status)) {

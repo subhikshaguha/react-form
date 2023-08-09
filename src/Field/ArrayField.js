@@ -8,21 +8,21 @@ export class ArrayField extends BaseField {
   childFields = null;
   model = null;
 
-  constructor(form, fieldValue) {
-    super(form, fieldValue);
+  constructor(form, fieldValue, parentField = null) {
+    super(form, fieldValue, parentField);
     this.childFieldsMetaInfo = fieldValue.childFieldsMetaInfo || [];
-    let phones = [
-      {
-        type: "mobile",
-        number: "9003283102"
-      },
-      {
-        type: "work",
-        number: "9003283102"
-      }
-    ];
-    this.value = phones;
-    this.createChildFields(this.value);
+    // let phones = [
+    //   {
+    //     type: "mobile",
+    //     number: "9003283102"
+    //   },
+    //   {
+    //     type: "work",
+    //     number: "9003283102"
+    //   }
+    // ];
+    // this.value = phones;
+    // this.createChildFields(this.value);
   }
 
   createChildFields(
@@ -39,7 +39,7 @@ export class ArrayField extends BaseField {
       let childMetaInfo = this.childFieldsMetaInfo;
       childFieldsValues.forEach((childValue) => {
         // childMetaInfo.value = childValue;
-        let field = createField(this.form, childMetaInfo);
+        let field = createField(this.form, childMetaInfo, this);
         childMetaInfo.value = null;
         // field.updateInitialValue();
         childFields.push(field);
@@ -59,7 +59,7 @@ export class ArrayField extends BaseField {
   }
 
   addNewChildField(value = null) {
-    let field = createField(this.form, this.childFieldsMetaInfo);
+    let field = createField(this.form, this.childFieldsMetaInfo, this);
     // let fieldValue = field.getValueCopy(value);
     // field.value = fieldValue;
     this.childFields.push(field);
@@ -90,4 +90,25 @@ export class ArrayField extends BaseField {
     });
   }
 
+  getCleanValue() {
+    return this.childFields.map(childField => {
+      let cleanValue;
+      if (childField.isDynamicExtraField) {
+        cleanValue = { key: childField.key, value: childField.getCleanValue() }
+      } else {
+        cleanValue = childField.getCleanValue();
+      }
+      return cleanValue;
+    });
+  }
+
+  isFieldDirty() {
+    this.isDirty = this.childFields.some((child) => child.isDirty);
+    if (this.parentField) {
+      this.parentField.isFieldDirty();
+    } else {
+      this.form.isFieldDirty();
+    }
+    return this.isDirty;
+  }
 }

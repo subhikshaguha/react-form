@@ -1,4 +1,3 @@
-import { min } from 'lodash';
 import { BaseField } from './BaseField';
 export class TextField extends BaseField {
   isTextField = true;
@@ -6,8 +5,8 @@ export class TextField extends BaseField {
   maxCharacterLimit = null;
   value = '';
   initialValue = '';
-  constructor(form, fieldValue) {
-    super(form, fieldValue);
+  constructor(form, fieldValue, parentField = null) {
+    super(form, fieldValue, parentField);
     this.minCharacterLimit = fieldValue.minCharacterLimit;
     this.maxCharacterLimit = fieldValue.maxCharacterLimit;
   }

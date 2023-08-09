@@ -6,7 +6,7 @@ export class BaseField {
   initialValue = null;
   defaultValue = null;
 
-  constructor(form, fieldValue) {
+  constructor(form, fieldValue, parentField = null) {
     this.value = fieldValue.value || fieldValue.defaultValue;
     this.form = form;
     this.initialValue = fieldValue.value;
@@ -19,6 +19,7 @@ export class BaseField {
     this.key = fieldValue.key;
     this.validateOnFocusOut = fieldValue.validateOnFocusOut;
     this.validateOnChange = fieldValue.validateOnChange;
+    this.parentField = parentField;
   }
 
   validate() {
@@ -49,7 +50,11 @@ export class BaseField {
 
   isFieldDirty() {
     this.isDirty = !isEqual(this.value, this.initialValue);
-    this.form.isFormDirty();
+    if (this.parentField) {
+      this.parentField.isFieldDirty();
+    } else {
+      this.form.isFieldDirty();
+    }
     return this.isDirty;
   }
 

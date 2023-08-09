@@ -52,24 +52,24 @@ export class BaseForm {
     });
   }
 
-  isFormDirty() {
+  isFieldDirty() {
     let fields = this.fields;
-    const checkFieldAndChildren = (field) => {
-      if (field.isObject) {
-        let childFields = field.childFields;
-        let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
-        field.isDirty = isDirty;
-        return isDirty;
-      } else if (field.isArray) {
-        let childFields = field.childFields;
-        let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
-        field.isDirty = isDirty;
-        return isDirty;
-      } else {
-        return field.isDirty;
-      }
-    };
-    this.isDirty = fields?.some(field => checkFieldAndChildren(field));
+    // const checkFieldAndChildren = (field) => {
+    //   if (field.isObject) {
+    //     let childFields = field.childFields;
+    //     let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
+    //     field.isDirty = isDirty;
+    //     return isDirty;
+    //   } else if (field.isArray) {
+    //     let childFields = field.childFields;
+    //     let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
+    //     field.isDirty = isDirty;
+    //     return isDirty;
+    //   } else {
+    //     return field.isDirty;
+    //   }
+    // };
+    this.isDirty = fields?.some(field => field.isDirty);
     if (this.onFormUpdate) {
       this.onFormUpdate('isDirty', this.isDirty);
     }
@@ -108,6 +108,7 @@ export class BaseForm {
     }
   }
 
+  // datasource to form
   copyFromDataSource(source = null) {
     let basicFieldKeys = this.basicFieldKeys;
     let dataSource = source || this.dataSource;
@@ -118,9 +119,20 @@ export class BaseForm {
         if (field) {
           let value = dataSource[key];
           if (field.isObject) {
-            let objectSource = dataSource[field.key];
-            this.copyFromDataSourceToObjectField(field, objectSource);
-          } else if (!isNil(value)) {
+            // let objectSource = dataSource[field.key];
+            // this.copyFromDataSourceToObjectField(field, objectSource);
+            field.value = dataSource[key];
+          } /*else if (field.isArray) {
+            let arraySource = dataSource[field.key];
+            if (arraySource) {
+              let arrayField = field.childFields;
+              field.childFields = [];
+              arraySource.forEach((objectSource, index) => {
+                let arrayFieldModel = arrayField[index];
+                this.copyFromDataSourceToObjectField(arrayFieldModel, objectSource);
+              });
+            }
+          }*/ else if (!isNil(value)) {
             field.value = dataSource[key];
           }
         }

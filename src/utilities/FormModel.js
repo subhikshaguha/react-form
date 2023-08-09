@@ -23,23 +23,23 @@ function getFieldClass(rawField) {
   return fieldClassDefinition;
 }
 
-function createField(containerItem, rawField) {
+function createField(containerItem, rawField, parentField = null) {
   let fieldClassDefinition = rawField?.fieldClass || getFieldClass(rawField);
   // If the field is of object type, create its child fields
-  if (rawField.isObject) {
-    let childFields = [];
-    rawField.childFieldsMetaInfo?.forEach((child) => {
-      if (rawField?.value) {
-        let value = rawField?.value?.[child.key] || null;;
-        child.value = value;
-      }
-      let field = createField(containerItem, child);
-      childFields.push(field);
-    });
-    rawField.childFields = childFields;
-  }
+  // if (rawField.isObject) {
+  //   let childFields = [];
+  //   rawField.childFieldsMetaInfo?.forEach((child) => {
+  //     if (rawField?.value) {
+  //       let value = rawField?.value?.[child.key] || null;;
+  //       child.value = value;
+  //     }
+  //     let field = createField(containerItem, child);
+  //     childFields.push(field);
+  //   });
+  //   rawField.childFields = childFields;
+  // }
 
-  return new fieldClassDefinition(containerItem, rawField);
+  return new fieldClassDefinition(containerItem, rawField, parentField);
 }
 
 function createFieldModels(fields) {
