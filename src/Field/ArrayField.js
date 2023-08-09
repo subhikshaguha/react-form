@@ -5,7 +5,7 @@ export class ArrayField extends BaseField {
   isArray = true;
   value = null;
   initialValue = null;
-  childFields = null;
+  childFields = [];
   model = null;
 
   constructor(form, fieldValue, parentField = null) {
@@ -39,8 +39,8 @@ export class ArrayField extends BaseField {
       let childMetaInfo = this.childFieldsMetaInfo;
       childFieldsValues.forEach((childValue) => {
         // childMetaInfo.value = childValue;
+        childMetaInfo.value = childValue;
         let field = createField(this.form, childMetaInfo, this);
-        childMetaInfo.value = null;
         // field.updateInitialValue();
         childFields.push(field);
         // value.push(field.value);

@@ -23,7 +23,7 @@ const AddReply = ({ form, submitted, isLoading }) => {
       <FormField field={form?.model?.address} submitted={submitted} isLoading={isLoading} />
       <button onClick={(e)=> addNewChildField(e, form.model.phones)}>+</button>
       <br />
-      {form.model.phones.childFields.map?.((phone, index) => {
+      {form.model.phones?.childFields?.map?.((phone, index) => {
         return(
         <React.Fragment>
           <button onClick={(e)=> removeChildField(e, index, form.model.phones)}>-</button>

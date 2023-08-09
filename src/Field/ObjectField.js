@@ -3,7 +3,6 @@ import { createField, createFieldModels } from '../utilities/FormModel';
 
 export class ObjectField extends BaseField {
   isObject = true;
-  value = null;
   initialValue = null;
   childFields = null;
   model = null;
@@ -23,11 +22,16 @@ export class ObjectField extends BaseField {
   ) {
     let childFields = [];
     if (childFieldsValues) {
-      let childMetaInfo = this.childFieldsMetaInfo;
+      // let childMetaInfo = this.childFieldsMetaInfo;
       childFieldsValues.forEach((childValue) => {
         // childMetaInfo.value = childValue;
-        let field = createField(this.form, childValue, this);
-        childMetaInfo.value = null;
+        // obj field
+        let fieldValue = {
+          ...childValue,
+          value: this.value?.[childValue.key],
+        };
+        let field = createField(this.form, fieldValue, this);
+        // childMetaInfo.value = null;
         // field.updateInitialValue();
         childFields.push(field);
         // value.push(field.value);
@@ -80,6 +84,7 @@ export class ObjectField extends BaseField {
     this.childFields.forEach((child) => {
       cleanValue[child.key] = child.getCleanValue();
     });
+    this.cleanValue = cleanValue;
     return cleanValue;
   }
 

@@ -3,7 +3,6 @@ export class TextField extends BaseField {
   isTextField = true;
   minCharacterLimit = null;
   maxCharacterLimit = null;
-  value = '';
   initialValue = '';
   constructor(form, fieldValue, parentField = null) {
     super(form, fieldValue, parentField);

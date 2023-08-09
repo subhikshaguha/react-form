@@ -119,20 +119,21 @@ export class BaseForm {
         if (field) {
           let value = dataSource[key];
           if (field.isObject) {
-            // let objectSource = dataSource[field.key];
-            // this.copyFromDataSourceToObjectField(field, objectSource);
+            let objectSource = dataSource[field.key];
+            this.copyFromDataSourceToObjectField(field, objectSource);
             field.value = dataSource[key];
-          } else if (field.isArray) {
-            // let arraySource = dataSource[field.key];
-            // if (arraySource) {
-            //   let arrayField = field.childFields;
-            //   field.childFields = [];
-            //   arraySource.forEach((objectSource, index) => {
-            //     let arrayFieldModel = arrayField[index];
-            //     this.copyFromDataSourceToObjectField(arrayFieldModel, objectSource);
-            //   });
-            // }
-          } else if (!isNil(value)) {
+          } /*else if (field.isArray) {
+            let arraySource = dataSource[field.key];
+            if (arraySource) {
+              let arrayField = field.childFields;
+              field.childFields = [];
+              arraySource.forEach((objectSource, index) => {
+                field.createChildFields(objectSource);
+                // let arrayFieldModel = arrayField[index];
+                // this.copyFromDataSourceToObjectField(arrayFieldModel, objectSource);
+              });
+            }
+          } */ else if (!isNil(value)) {
             field.value = dataSource[key];
           }
         }
@@ -172,7 +173,6 @@ export class BaseForm {
           dataSource[key] = field.getCleanValue();
         }
       });
-      console.log('subhiksha with data source', this.dataSource)
     }
   }
 
