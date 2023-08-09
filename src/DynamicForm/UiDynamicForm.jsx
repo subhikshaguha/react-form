@@ -22,7 +22,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-function UiDynamicForm({component, form, submitted}) {
+function UiDynamicForm({ component, form, submitted, isLoading }) {
   const [componentUpdated, setComponentUpdated] = useState(false);
   const dynamicComponentRef = useRef(null);
 
@@ -41,7 +41,7 @@ function UiDynamicForm({component, form, submitted}) {
   return (
     <div>
       {/* Render the dynamically loaded component */}
-      {DynamicComponent && <DynamicComponent form={form} submitted={submitted} />}
+      {DynamicComponent && <DynamicComponent form={form} submitted={submitted} isLoading={isLoading}/>}
 
     </div>
   );
