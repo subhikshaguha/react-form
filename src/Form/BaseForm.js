@@ -11,7 +11,9 @@ export class BaseForm {
     this.fields = createFields(this, this.rawFields);
     this.model = createFieldModels(this.fields);
     this.component = formValue.component;
-    this.copyFromDataSource();
+    if (this.dataSource) {
+      this.copyFromDataSource();
+    }
   }
   submit() {
     this.resetErrors();
