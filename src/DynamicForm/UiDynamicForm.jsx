@@ -1,25 +1,3 @@
-
-// import React, { useState, Suspense } from 'react';
-
-// function UiDynamicForm({ component, form }) {
-//   const [parentText, setParentText] = useState('Hello from parent state!');
-
-//   // Dynamically load the component based on the componentName prop
-//   // let x = './AddReply.jsx'
-//   const DynamicComponent = React.lazy(() => import('./AddReply.jsx'));
-
-//   return (
-//     <div>
-//       {/* Render the dynamically loaded component */}
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <DynamicComponent text={parentText} />
-//       </Suspense>
-//     </div>
-//   );
-// }
-
-// export default UiDynamicForm;
-
 import React, { useState, useEffect, useRef } from 'react';
 
 function UiDynamicForm({ component, form }) {
