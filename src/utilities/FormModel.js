@@ -15,7 +15,7 @@ function getFieldClass(rawField) {
   let fieldClassDefinition = null;
   if (rawField.isObject) {
     fieldClassDefinition = ObjectField;
-  } else if (rawField.isTextField) {
+  } else if (rawField.isText) {
     fieldClassDefinition = TextField;
   } else if (rawField.isArray) {
     fieldClassDefinition = ArrayField;

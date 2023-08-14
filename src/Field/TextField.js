@@ -1,6 +1,6 @@
 import { BaseField } from './BaseField';
 export class TextField extends BaseField {
-  isTextField = true;
+  isText = true;
   minCharacterLimit = null;
   maxCharacterLimit = null;
   initialValue = '';

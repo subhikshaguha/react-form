@@ -6,7 +6,7 @@ import UiArrayField from './UiArrayField';
 function FormField({ field }) {
   return (
     <Fragment>
-      {field?.isTextField && <UiTextField field={field} />}
+      {field?.isText && <UiTextField field={field} />}
       {field?.isObject && <UiObjectField field={field} />}
       {field?.isArray && <UiArrayField field={field}  />}
     </Fragment>

@@ -22,13 +22,13 @@ const Forms = (props) => {
     application: 'happyfox',
     rawFields: [
       {
-        isTextField: true,
+        isText: true,
         label: 'First Name',
         key: 'firstName',
         isMandatory: true
       },
       {
-        isTextField: true,
+        isText: true,
         label: 'Last Name',
         key: 'lastName',
         isMandatory: true,
@@ -36,7 +36,7 @@ const Forms = (props) => {
         minCharacterLimit: 5,
       },
       {
-        isTextField: true,
+        isText: true,
         label: 'Middle Name',
         key: 'middleName',
       },
@@ -46,7 +46,7 @@ const Forms = (props) => {
         key: 'address',
         childFieldsMetaInfo: [
           {
-            isTextField: true, 
+            isText: true, 
             label: 'Street', 
             key: 'street',
             isMandatory: true,
@@ -57,11 +57,11 @@ const Forms = (props) => {
             label: 'City',
             key: 'city',
             childFieldsMetaInfo: [
-              { isTextField: true, label: 'Name', key: 'name', isMandatory: true },
-              { isTextField: true, label: 'Code', key: 'code' },
+              { isText: true, label: 'Name', key: 'name', isMandatory: true },
+              { isText: true, label: 'Code', key: 'code' },
             ]
           },
-          { isTextField: true, label: 'State', key: 'state' },
+          { isText: true, label: 'State', key: 'state' },
         ]
       },
       {
@@ -73,8 +73,8 @@ const Forms = (props) => {
           label: 'Phone', 
           key: 'phone',
           childFieldsMetaInfo: [
-            { isTextField: true, label: 'Number', key: 'number', isMandatory: true },
-            { isTextField: true, label: 'Type', key: 'type' },
+            { isText: true, label: 'Number', key: 'number', isMandatory: true },
+            { isText: true, label: 'Type', key: 'type' },
           ]
         }
       }
@@ -87,13 +87,13 @@ const Forms = (props) => {
     component: './AddReply.jsx',
     rawFields: [
       {
-        isTextField: true,
+        isText: true,
         label: 'First Name',
         key: 'firstName',
         isMandatory: true
       },
       {
-        isTextField: true,
+        isText: true,
         label: 'Last Name',
         key: 'lastName',
         isMandatory: true,
@@ -101,7 +101,7 @@ const Forms = (props) => {
         minCharacterLimit: 10,
       },
       {
-        isTextField: true,
+        isText: true,
         label: 'Middle Name',
         key: 'middleName',
       },
@@ -111,13 +111,13 @@ const Forms = (props) => {
         key: 'address',
         childFieldsMetaInfo: [
           {
-            isTextField: true, 
+            isText: true, 
             label: 'Street', 
             key: 'street',
             isMandatory: true,
             validateOnChange: true
           },
-          { isTextField: true, label: 'State', key: 'state' },
+          { isText: true, label: 'State', key: 'state' },
         ]
       }
     ],
@@ -136,7 +136,7 @@ const Forms = (props) => {
     // formValues
     const formVal = {
       ...formValues,
-      dataSourcex: {
+      dataSource: {
         firstName: "text",
         middleName: "some name",
         update_contact: true,
