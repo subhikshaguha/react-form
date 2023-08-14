@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FormField from './FormField';
 import BaseField from './UiBaseField';
 
-const UiArrayField = React.memo(({ field, submitted, isLoading }) => {
+const UiArrayField = ({ field }) => {
 
   const addChildField = () => {
     field.add?.();
@@ -14,12 +14,12 @@ const UiArrayField = React.memo(({ field, submitted, isLoading }) => {
         <React.Fragment>
             Array Field <button type="button" onClick={() => addChildField()}>+</button>
            {field.childFields.map((field, index) => (
-            <FormField key={`${field.key}${index}`} field={field} submitted={submitted} isLoading={isLoading} />
+            <FormField key={`${field.key}${index}`} field={field} />
           ))}
         </React.Fragment>
       }
     />
   );
-});
+};
 
 export default UiArrayField;

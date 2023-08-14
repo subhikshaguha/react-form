@@ -3,12 +3,12 @@ import UiTextField from './UiTextField';
 import UiObjectField from './UiObjectField';
 import UiArrayField from './UiArrayField';
 
-function FormField({ field, submitted, isLoading }) {
+function FormField({ field }) {
   return (
     <Fragment>
-      {field?.isTextField && <UiTextField field={field} submitted={submitted} isLoading={isLoading} />}
-      {field?.isObject && <UiObjectField field={field} submitted={submitted} isLoading={isLoading} />}
-      {field?.isArray && <UiArrayField field={field} submitted={submitted} isLoading={isLoading} />}
+      {field?.isTextField && <UiTextField field={field} />}
+      {field?.isObject && <UiObjectField field={field} />}
+      {field?.isArray && <UiArrayField field={field}  />}
     </Fragment>
   );
 }

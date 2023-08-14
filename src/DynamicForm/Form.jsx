@@ -44,11 +44,11 @@ function Form(props) {
 
   return (
     <form className="Form">
-      {form?.component ? <UiDynamicForm component={form.component} form={form} submitted={submitted} isLoading={isLoading}/> :
+      {form?.component ? <UiDynamicForm component={form.component} form={form} /> :
         <React.Fragment>
           {form?.fields?.map((field, index) => {
             return (
-              <FormField key={`${field.key}${index}`} field={field} submitted={submitted} isLoading={isLoading} />
+              <FormField key={`${field.key}${index}`} field={field} />
             );
           })}
         </React.Fragment>
