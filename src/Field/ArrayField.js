@@ -3,26 +3,12 @@ import { createField } from "../utilities/FormModel";
 
 export class ArrayField extends BaseField {
   isArray = true;
-  value = null;
-  initialValue = null;
   childFields = [];
   model = null;
 
   constructor(form, fieldValue, parentField = null) {
     super(form, fieldValue, parentField);
     this.childFieldsMetaInfo = fieldValue.childFieldsMetaInfo || [];
-    // let phones = [
-    //   {
-    //     type: "mobile",
-    //     number: "9003283102"
-    //   },
-    //   {
-    //     type: "work",
-    //     number: "9003283102"
-    //   }
-    // ];
-    // this.value = phones;
-    // this.createChildFields(this.value);
   }
 
   createChildFields(
@@ -38,18 +24,9 @@ export class ArrayField extends BaseField {
     if (childFieldsValues) {
       let childMetaInfo = this.childFieldsMetaInfo;
       childFieldsValues.forEach((childValue) => {
-        // childMetaInfo.value = childValue;
         childMetaInfo.value = childValue;
         let field = createField(this.form, childMetaInfo, this);
-        // field.updateInitialValue();
         childFields.push(field);
-        // value.push(field.value);
-
-        // if (isClone) {
-        //   field.clearInitialValue();
-        // } else if (setInitialValue) {
-        //   initialValue.push(field._initialValue);
-        // }
       });
     }
 
@@ -59,9 +36,11 @@ export class ArrayField extends BaseField {
   }
 
   addNewChildField(value = null) {
-    let field = createField(this.form, this.childFieldsMetaInfo, this);
-    // let fieldValue = field.getValueCopy(value);
-    // field.value = fieldValue;
+    let fieldValue = {
+      ...this.childFieldsMetaInfo,
+      value: value,
+    };
+    let field = createField(this.form, fieldValue, this);
     this.childFields.push(field);
     return this.childFields;
   }

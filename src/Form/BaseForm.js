@@ -1,4 +1,4 @@
-import { isNil } from 'lodash';
+import { isNil, camelCase } from 'lodash';
 import { isInvalid } from '../utilities/request';
 import { createFields, createFieldModels } from '../utilities/FormModel';
 export class BaseForm {
@@ -83,8 +83,8 @@ export class BaseForm {
       let field = fields[i];
       if (field.key === key) {
         return field;
-      } else if (field.children) {
-        let childField = findFieldByKey(field.children, key);
+      } else if (field.childField) {
+        let childField = findFieldByKey(field.childField, key);
         if (childField) {
           return childField;
         }
@@ -93,6 +93,7 @@ export class BaseForm {
     return null;
   }
 
+  // to work on
   populateErrors(errors) {
     let fields = this.fields;
     if (isInvalid(errors.status)) {
@@ -101,7 +102,7 @@ export class BaseForm {
         if (errorKey === 'nonFieldErrors') {
           this.errors = errorsPayload[errorKey];
         } else {
-          let field = findFieldByKey(fields, error.field.camelize());
+          let field = findFieldByKey(fields, camelCase(error.field));
           if (!isNil(field)) {
             field.setErrors(errorsPayload[errorKey]);
           }

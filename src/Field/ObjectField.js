@@ -3,9 +3,7 @@ import { createField, createFieldModels } from '../utilities/FormModel';
 
 export class ObjectField extends BaseField {
   isObject = true;
-  initialValue = null;
   childFields = null;
-  model = null;
 
   constructor(form, fieldValue, parentField = null) {
     super(form, fieldValue, parentField);

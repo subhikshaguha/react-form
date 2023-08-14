@@ -136,6 +136,23 @@ const Forms = (props) => {
     // formValues
     const formVal = {
       ...formValues,
+      dataSource: {
+        firstName: "text",
+        middleName: "some name",
+        update_contact: true,
+        address: {
+            street: "wilford",
+            city: {
+                name: "street"
+            }
+        },
+        phones: [
+            {
+                type: "mobile",
+                number: ""
+            }
+        ]
+      },
       onFormUpdate
     }
     let formInstance = new EditForm(formVal);

@@ -53,13 +53,9 @@ const UiTextField = React.memo(({ field }) => {
               onBlur={handleFocusOut}
             />
           </div>
-          <div className="error-message">
-            {field.errors?.map((error, index) => (
-              <span key={index}>{error}</span>
-            ))}
-          </div>
         </React.Fragment>
       }
+      errors={field.errors}
     />
   );
 });

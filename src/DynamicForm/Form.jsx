@@ -22,15 +22,23 @@ function Form(props) {
 
   const fetchUserData = () => {
     setIsLoading(true);
-    fetch("https://run.mocky.io/v3/3c961efc-ff85-46b3-828f-39f7d00ae557")
+    // https://run.mocky.io/v3/7c368ee5-f390-4feb-a3bc-1a3e55393287 - error
+    // https://run.mocky.io/v3/3c961efc-ff85-46b3-828f-39f7d00ae557 - success
+    fetch("https://run.mocky.io/v3/7c368ee5-f390-4feb-a3bc-1a3e55393287")
       .then(response => {
         return response.json()
       })
       .then(data => {
-        let dataSource = data?.steps?.[0].data;
-        form.setDataSource(dataSource);
-        form.copyFromDataSource();
-        setIsLoading(false);
+        if (data?.steps?.[0]?.data) {
+          let dataSource = data?.steps?.[0].data;
+          form.setDataSource(dataSource);
+          form.copyFromDataSource();
+          setIsLoading(false);
+        } else if (data?.errors) {
+          data.status = 422;
+          form.populateErrors(data);
+          setIsLoading(false);
+        }
       })
   };
 

@@ -1,3 +1,5 @@
+import { isInvalid } from '../utilities/request';
+import { camelCase } from 'lodash';
 import { BaseForm } from './BaseForm';
 
 export default class EditForm extends BaseForm {
@@ -17,20 +19,25 @@ export default class EditForm extends BaseForm {
     }
   }
 
-  /*populateErrors(errorResponse) {
-    let fields = this.get('fields');
+  populateErrors(errorResponse) {
+    let fields = this.fields;
+  
     if (errorResponse && isInvalid(errorResponse.status)) {
       let nonFieldErrorMessage = [];
+  
       errorResponse.errors.forEach(error => {
         if (error.field && error.errors) {
-          let field = fields.findBy('key', error.field.camelize());
-          if (isPresent(field)) {
+          let field = fields.find(field => field.key === camelCase(error.field));
+          
+          if (field !== undefined && field !== null) {
             let fieldErrorMessage = [];
+            
             error.errors.forEach(err => {
               if (err.message) {
                 fieldErrorMessage.push(err.message);
               }
             });
+  
             field.setErrors(fieldErrorMessage);
           }
         } else if (error.errors) {
@@ -41,11 +48,13 @@ export default class EditForm extends BaseForm {
           });
         }
       });
+  
       if (nonFieldErrorMessage.length > 0) {
-        this.set('nonFieldErrorMessage', nonFieldErrorMessage);
+        this.nonFieldErrorMessage = nonFieldErrorMessage;
       } else {
-        this.set('nonFieldErrorMessage', null);
+        this.nonFieldErrorMessage = null;
       }
     }
-  }*/
+  }
+  
 }

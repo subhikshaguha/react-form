@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import FormField from '../UiField/FormField';
 
 const AddReply = ({ form, submitted, isLoading }) => {
-  const [arrayField, setArrayField] = React.useState(0);
+  const [arrayField, setArrayField] = React.useState(form.model?.phones?.length);
   const addNewChildField = (e, formPhones) => {
     e.preventDefault();
     let phones = formPhones.addNewChildField();
