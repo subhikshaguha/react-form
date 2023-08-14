@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BaseField from './UiBaseField';
 
 const UiTextField = ({ field }) => {
-  const [inputValue, setInputValue] = useState(field.value);
+  const [inputValue, setInputValue] = useState(field.value || '' );
   const [errors, setErrors] = useState(field.errors);
   const {
     label,
@@ -11,7 +11,7 @@ const UiTextField = ({ field }) => {
   } = field;
 
   useEffect(() => {
-    setInputValue(field.value);
+    setInputValue(field.value || '');
     setErrors(field.errors);
   }, [field.value, field.errors]);
 
@@ -20,9 +20,9 @@ const UiTextField = ({ field }) => {
     field.updateValue(newValue);
     if (field.validateOnChange) {
       field.validate().then(() => {
-        setInputValue(newValue);
+        setInputValue(newValue || '');
       }).catch(() => {
-        setInputValue(newValue);
+        setInputValue(newValue || '');
       });
     } else {
       setInputValue(newValue);

@@ -1,6 +1,7 @@
 import { isNil, camelCase } from 'lodash';
 import { isInvalid } from '../utilities/request';
 import { createFields, createFieldModels } from '../utilities/FormModel';
+
 export class BaseForm {
   constructor(formValue) {
     this.onFormUpdate = formValue.onFormUpdate;
@@ -27,10 +28,12 @@ export class BaseForm {
           reject();
         });
     });
-  }
+  };
+
   resetErrors() {
     this.errors = [];
   };
+
   reset() {
     this.errors = [];
     this.value = this.initialValue;
@@ -56,21 +59,6 @@ export class BaseForm {
 
   isFieldDirty() {
     let fields = this.fields;
-    // const checkFieldAndChildren = (field) => {
-    //   if (field.isObject) {
-    //     let childFields = field.childFields;
-    //     let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
-    //     field.isDirty = isDirty;
-    //     return isDirty;
-    //   } else if (field.isArray) {
-    //     let childFields = field.childFields;
-    //     let isDirty = childFields?.some((childField) => checkFieldAndChildren(childField));
-    //     field.isDirty = isDirty;
-    //     return isDirty;
-    //   } else {
-    //     return field.isDirty;
-    //   }
-    // };
     this.isDirty = fields?.some(field => field.isDirty);
     if (this.onFormUpdate) {
       this.onFormUpdate('isDirty', this.isDirty);
@@ -83,8 +71,8 @@ export class BaseForm {
       let field = fields[i];
       if (field.key === key) {
         return field;
-      } else if (field.childField) {
-        let childField = findFieldByKey(field.childField, key);
+      } else if (field.childFields) {
+        let childField = this.findFieldByKey(field.childFields, key);
         if (childField) {
           return childField;
         }
@@ -93,7 +81,6 @@ export class BaseForm {
     return null;
   }
 
-  // to work on
   populateErrors(errors) {
     let fields = this.fields;
     if (isInvalid(errors.status)) {
@@ -102,7 +89,7 @@ export class BaseForm {
         if (errorKey === 'nonFieldErrors') {
           this.errors = errorsPayload[errorKey];
         } else {
-          let field = findFieldByKey(fields, camelCase(error.field));
+          let field = this.findFieldByKey(fields, camelCase(error.field));
           if (!isNil(field)) {
             field.setErrors(errorsPayload[errorKey]);
           }
@@ -125,18 +112,7 @@ export class BaseForm {
             let objectSource = dataSource[field.key];
             this.copyFromDataSourceToObjectField(field, objectSource);
             field.value = dataSource[key];
-          } /*else if (field.isArray) {
-            let arraySource = dataSource[field.key];
-            if (arraySource) {
-              let arrayField = field.childFields;
-              field.childFields = [];
-              arraySource.forEach((objectSource, index) => {
-                field.createChildFields(objectSource);
-                // let arrayFieldModel = arrayField[index];
-                // this.copyFromDataSourceToObjectField(arrayFieldModel, objectSource);
-              });
-            }
-          } */ else if (!isNil(value)) {
+          } else if (!isNil(value)) {
             field.value = dataSource[key];
           }
         }
@@ -162,6 +138,7 @@ export class BaseForm {
     });
   }
 
+  // form to datasource
   copyToDataSource() {
     let dataSource = this.dataSource;
     let basicFieldKeys = this.basicFieldKeys;

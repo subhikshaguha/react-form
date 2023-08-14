@@ -1,5 +1,5 @@
 import React from 'react';
-import FormField from '../UiField/FormField';
+import FormField from '../Input/FormField';
 
 const SendEmail = ({form}) => {
   return (

@@ -27,7 +27,7 @@ export default class EditForm extends BaseForm {
   
       errorResponse.errors.forEach(error => {
         if (error.field && error.errors) {
-          let field = fields.find(field => field.key === camelCase(error.field));
+          let field =  this.findFieldByKey(fields, camelCase(error.field));
           
           if (field !== undefined && field !== null) {
             let fieldErrorMessage = [];

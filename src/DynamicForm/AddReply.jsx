@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import FormField from '../UiField/FormField';
+import FormField from '../Input/FormField';
 
 const AddReply = ({ form }) => {
   const [arrayField, setArrayField] = React.useState(form.model?.phones?.length);
