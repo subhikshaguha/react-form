@@ -3,7 +3,7 @@ export class TextField extends BaseField {
   isText = true;
   minCharacterLimit = null;
   maxCharacterLimit = null;
-  initialValue = '';
+
   constructor(form, fieldValue, parentField = null) {
     super(form, fieldValue, parentField);
     this.minCharacterLimit = fieldValue.minCharacterLimit;

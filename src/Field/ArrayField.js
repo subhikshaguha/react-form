@@ -12,14 +12,10 @@ export class ArrayField extends BaseField {
   }
 
   createChildFields(
-    childFieldsValues = null,
-    isClone = false,
-    setInitialValue = true
+    childFieldsValues = null
   ) {
     childFieldsValues = childFieldsValues || this.value;
     let childFields = [];
-    let initialValue = [];
-    let value = [];
 
     if (childFieldsValues) {
       let childMetaInfo = this.childFieldsMetaInfo;
@@ -29,9 +25,6 @@ export class ArrayField extends BaseField {
         childFields.push(field);
       });
     }
-
-    // this.value = value;
-    // this._initialValue = initialValue;
     this.childFields = childFields;
   }
 
